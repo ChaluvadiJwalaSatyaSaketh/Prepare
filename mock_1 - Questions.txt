@@ -1,0 +1,463 @@
+Rev 1
+------
+You've been tasked with developing a Java program for managing student information. The program should allow users to input details for a student, including their name, age, and grade. Ensure that the age is a non-negative integer and the grade is a non-negative double. Once the details are entered, the program should display the student's information.
+
+Input format :
+The first line consists of a String that represents the name.
+
+The second line consists of int which represents age.
+
+The third line consists of a double that represents the grade.
+
+Output format :
+The Output should display the student's details.
+
+Sample test cases :
+Input 1 :
+
+John Doe
+25
+85.5
+
+Output 1 :
+
+Student Details:
+Name: John Doe
+Age: 25
+Grade: 85.5
+
+
+Input 2 :
+John Doe
+-25
+85.5
+
+Output 2 :
+
+Age must be a non-negative integer.
+Student Details:
+Name: John Doe
+Age: 0
+Grade: 85.5
+
+
+Input 3 :
+John Doe
+25
+-85.5
+
+Output 3 :
+
+Grade must be a non-negative double.
+Student Details:
+Name: John Doe
+Age: 25
+Grade: 0.0
+
+Input 4 :
+
+John Doe
+-25
+-85.5
+
+Output 4 :
+
+Age must be a non-negative integer.
+Grade must be a non-negative double.
+Student Details:
+Name: John Doe
+Age: 0
+Grade: 0.0
+-----------------------------------------------------------------------
+
+Taxi Management System
+
+You have been tasked with developing a Taxi Management System JDBC program to efficiently manage taxi bookings and dispatches. The system should enable users to perform various operations such as adding taxi details, removing taxi details, and viewing all taxis.
+
+
+
+Table Name: taxis
+
+													
+
+
+
+Perform the following operations through the Java application:
+
+Add Taxi Details
+Update Taxi Details
+View All Taxis
+Remove Taxi Details
+
+
+Note:
+
+Utilize try/catch and finally blocks to handle SQLExceptions effectively.
+Ensure that the table name matches the one specified above (taxis).
+The Table is created and some tuples have been already inserted into the table.
+taxi_id range is between 1001 to 1005.
+Input format :
+The first line of the input consists of a number as an option representing the CRUD operation like 
+
+1 - Add Taxi Details
+
+2 - Update the phonenumber
+
+3 - View All Taxis
+
+4 - Remove Taxi Details based on the primary key
+
+and the required inputs related to the operation in the next lines.
+
+Output format :
+The output prints the details from the table as per CRUD operation.
+
+Refer to the sample output for reference.
+
+Sample test cases :
+
+Input 1 :
+
+1
+1006
+Gopal Singh
+KA12MN3456
+9876543215
+Chennai
+
+Output 1 :
+
+Taxi added successfully.
+Taxi ID: 1001
+Driver Name: Ravi Kumar
+License Plate: MH12AB1234
+Phone Number: 9876543210
+Location: Mumbai
+
+Taxi ID: 1002
+Driver Name: Priya Sharma
+License Plate: DL05CD5678
+Phone Number: 9876543211
+Location: Delhi
+
+Taxi ID: 1003
+Driver Name: Suresh Gupta
+License Plate: KA03EF9101
+Phone Number: 9876543212
+Location: Bangalore
+
+Taxi ID: 1004
+Driver Name: Pooja Patel
+License Plate: GJ06GH2345
+Phone Number: 9876543213
+Location: Ahmedabad
+
+Taxi ID: 1005
+Driver Name: Amit Singh
+License Plate: UP09IJ6789
+Phone Number: 9876543214
+Location: Lucknow
+
+Taxi ID: 1006
+Driver Name: Gopal Singh
+License Plate: KA12MN3456
+Phone Number: 9876543215
+Location: Chennai
+
+
+Input 2 :
+
+2
+1001
+789859590
+
+Output 2 :
+Phone number updated successfully.
+Taxi ID: 1001
+Driver Name: Ravi Kumar
+License Plate: MH12AB1234
+Phone Number: 789859590
+Location: Mumbai
+
+Taxi ID: 1002
+Driver Name: Priya Sharma
+License Plate: DL05CD5678
+Phone Number: 9876543211
+Location: Delhi
+
+Taxi ID: 1003
+Driver Name: Suresh Gupta
+License Plate: KA03EF9101
+Phone Number: 9876543212
+Location: Bangalore
+
+Taxi ID: 1004
+Driver Name: Pooja Patel
+License Plate: GJ06GH2345
+Phone Number: 9876543213
+Location: Ahmedabad
+
+Taxi ID: 1005
+Driver Name: Amit Singh
+License Plate: UP09IJ6789
+Phone Number: 9876543214
+Location: Lucknow
+
+
+Input 3 :
+
+3
+Output 3 :
+Taxi ID: 1001
+Driver Name: Ravi Kumar
+License Plate: MH12AB1234
+Phone Number: 9876543210
+Location: Mumbai
+
+Taxi ID: 1002
+Driver Name: Priya Sharma
+License Plate: DL05CD5678
+Phone Number: 9876543211
+Location: Delhi
+
+Taxi ID: 1003
+Driver Name: Suresh Gupta
+License Plate: KA03EF9101
+Phone Number: 9876543212
+Location: Bangalore
+
+Taxi ID: 1004
+Driver Name: Pooja Patel
+License Plate: GJ06GH2345
+Phone Number: 9876543213
+Location: Ahmedabad
+
+Taxi ID: 1005
+Driver Name: Amit Singh
+License Plate: UP09IJ6789
+Phone Number: 9876543214
+Location: Lucknow
+
+
+Input 4 :
+
+4
+1001
+Output 4 :
+Taxi removed successfully.
+Taxi ID: 1002
+Driver Name: Priya Sharma
+License Plate: DL05CD5678
+Phone Number: 9876543211
+Location: Delhi
+
+Taxi ID: 1003
+Driver Name: Suresh Gupta
+License Plate: KA03EF9101
+Phone Number: 9876543212
+Location: Bangalore
+
+Taxi ID: 1004
+Driver Name: Pooja Patel
+License Plate: GJ06GH2345
+Phone Number: 9876543213
+Location: Ahmedabad
+
+Taxi ID: 1005
+Driver Name: Amit Singh
+License Plate: UP09IJ6789
+Phone Number: 9876543214
+Location: Lucknow
+
+
+
+-----------------------------------------------------------------------
+
+Shopping Cart Discount Management using HashMap
+
+
+
+﻿You are tasked with developing a simple shopping cart management system for a retail store. The system should allow the user to input the names and prices of items they want to purchase. After the data is collected, the system should ask for a total price threshold. If the total price of items purchased exceeds the threshold, the customer will receive a 10% discount on the total bill. The program will ensure that only positive price values are accepted and will display the details of the purchased items, the total bill before discount, and the total bill after applying the discount if applicable.
+
+Input format :
+The first line of input consists of an integer representing the number of items the customer wants to purchase.
+
+The next two lines consist of the user inputs for each item:
+
+Item name (String)
+Item price (double, must be a positive number)
+After entering the item details, the last line of input consists of the total price threshold.
+
+Output format :
+The output displays the names and prices of the items (2 decimal values) purchased.
+
+The total bill (2 decimal values) before any discount.
+
+If the total bill exceeds the threshold, the output displays the total bill (2 decimal values) after a 10% discount. if not then "No discount applied as the total bill does not exceed the threshold."
+
+If no items are purchased, the output prints a message stating that "No items were purchased".
+
+Sample test cases :
+
+Input 1 :
+
+2
+Banana
+0.99
+Juice
+3.50
+10.00
+
+Output 1 :
+
+Items purchased:
+Item: Juice, Price: 3.50
+Item: Banana, Price: 0.99
+Total bill before discount: 4.49
+No discount applied as the total bill does not exceed the threshold.
+Input 2 :
+3
+Apple
+1.50
+Milk
+2.75
+Bread
+3.25
+5.00
+
+Output 2 :
+
+Items purchased:
+Item: Apple, Price: 1.50
+Item: Milk, Price: 2.75
+Item: Bread, Price: 3.25
+Total bill before discount: 7.50
+Total bill after 10% discount: 6.75
+
+
+
+
+--------------------------------------------------------------------
+
+
+Task Management using ArrayList for Delivery Parcels
+
+
+
+﻿You are developing a task management application aimed at helping delivery personnel organize their parcel deliveries effectively. The application allows users to add delivery tasks to their to-do list and prioritize them based on their importance. To enhance the functionality, the application needs to sort the delivery tasks in ascending order by their importance level using a comparator.
+
+Input format :
+For each delivery task:
+
+Enter the parcel description. The application should accept between 5 and 10 tasks, and the parcel description should be of String data type.
+Enter the importance level (an integer between 1 and 10, inclusive).
+To indicate the end of the task entry, type "Completed".
+
+Output format :
+After all delivery tasks have been entered, the program displays the tasks sorted by importance level. The output format is as follows:
+
+For each task in the to-do list:
+Display the parcel description followed by its importance level.
+Each task is presented on a separate line.
+Note: The tasks are sorted in ascending order by their importance values.
+
+Sample test cases :
+Input 1 :
+Deliver electronics package
+3
+Deliver fragile items
+2
+Deliver furniture
+5
+Deliver documents
+1
+Deliver grocery items
+4
+Completed
+Output 1 :
+Delivery Tasks by Importance:
+Task: Deliver documents, Importance: 1
+Task: Deliver fragile items, Importance: 2
+Task: Deliver electronics package, Importance: 3
+Task: Deliver grocery items, Importance: 4
+Task: Deliver furniture, Importance: 5
+Input 2 :
+Parcel Description: Deliver hiking gear
+9
+Parcel Description: Deliver cooking ingredients
+3
+Parcel Description: Deliver mobile phone
+5
+Parcel Description: Deliver kitchen gadgets
+8
+Parcel Description: Deliver seasonal items
+6
+Parcel Description: Deliver musical albums
+2
+Parcel Description: Deliver books
+4
+Parcel Description: Deliver AC
+7
+Parcel Description: Deliver toys
+1
+Completed
+Output 2 :
+Delivery Tasks by Importance:
+Task: Parcel Description: Deliver toys, Importance: 1
+Task: Parcel Description: Deliver musical albums, Importance: 2
+Task: Parcel Description: Deliver cooking ingredients, Importance: 3
+Task: Parcel Description: Deliver books, Importance: 4
+Task: Parcel Description: Deliver mobile phone, Importance: 5
+Task: Parcel Description: Deliver seasonal items, Importance: 6
+Task: Parcel Description: Deliver AC, Importance: 7
+Task: Parcel Description: Deliver kitchen gadgets, Importance: 8
+Task: Parcel Description: Deliver hiking gear, Importance: 9
+
+
+
+
+----------------------------------------------------------------------
+
+Delivery Service Interface
+
+
+
+You are developing a delivery service system that handles deliveries through various methods. Create an interface named DeliveryMethod with a method deliverPackage(). Implement this interface for two delivery methods: DroneDelivery and BikeCourier. Take user input for the package weight and simulate processing deliveries using both methods.
+
+Input format :
+The input consists of an integer which represents the package weight.
+
+Output format :
+The output displays the simulated processing of deliveries using both drone delivery and bike courier methods. The weight will be rounded to two decimal places.
+
+
+
+Refer to the sample output for formatting specifications.
+
+Sample test cases :
+Input 1 :
+
+5.75
+
+Output 1 :
+
+Processing drone delivery of package weighing 5.75 kg
+Drone delivery processed successfully!
+Processing bike courier delivery of package weighing 5.75 kg
+Bike courier delivery processed successfully!
+
+
+Input 2 :
+
+12.00
+
+Output 2 :
+
+Processing drone delivery of package weighing 12.00 kg
+Drone delivery processed successfully!
+Processing bike courier delivery of package weighing 12.00 kg
+Bike courier delivery processed successfully!
+
+
+
+

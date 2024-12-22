@@ -1,0 +1,106 @@
+import java.util.*;
+
+class Main{
+    public static void main(String[] args){
+        Scanner scan = new Scanner(System.in);
+        
+        HashMap<String,Integer> map = new HashMap<>();
+        
+        int n = scan.nextInt();
+        
+        for(int i=1;i<=n;i++){
+            scan.nextLine();
+            String name = scan.nextLine();
+            int days = scan.nextInt();
+            map.put(name,days);
+        }
+        
+        scan.nextLine();
+        String daysWorkedOfName = scan.nextLine();
+        String removeName = scan.nextLine();
+        String searchName = scan.nextLine();
+        
+        if(map.containsKey(daysWorkedOfName)){
+            System.out.println(daysWorkedOfName+" worked for "+map.get(daysWorkedOfName)+" days.");
+        }else{
+            System.out.println("Caregiver "+daysWorkedOfName+" not found.");
+        }
+        
+        if(map.containsKey(removeName)){
+            map.remove(removeName);
+            System.out.println("Caregiver "+removeName+" has been removed from the schedule.");
+        }else{
+            System.out.println("caregiver "+removeName+" not found for removal.");
+        }
+        
+        if(map.containsKey(searchName)){
+            System.out.println("Caregiver "+searchName+" exists in the system.");
+        }else{
+            System.out.println("Caregiver "+searchName+" does not exist in the system.");
+        }
+        
+        int total = 0;
+        for(Map.Entry<String,Integer> e : map.entrySet()){
+            total = total + e.getValue();
+        }
+        
+        Sysimport java.util.*;
+
+class Main{
+    public static void main(String[] args){
+        Scanner scan = new Scanner(System.in);
+        
+        HashMap<String,Integer> map = new HashMap<>();
+        
+        int n = scan.nextInt();
+        
+        for(int i=1;i<=n;i++){
+            scan.nextLine();
+            String name = scan.nextLine();
+            int days = scan.nextInt();
+            
+            if(days<1 || days>30){
+                System.out.println("Days worked mush be between 1 and 30.");
+                continue;
+            }
+            
+            map.put(name,days);
+        }
+        
+        scan.nextLine();
+        String daysWorkedOfName = scan.nextLine();
+        String removeName = scan.nextLine();
+        String searchName = scan.nextLine();
+        
+        
+        if(map.containsKey(daysWorkedOfName)){
+            System.out.println(daysWorkedOfName+" worked for "+map.get(daysWorkedOfName)+" days.");
+        }else{
+            System.out.println("Caregiver "+daysWorkedOfName+" not found.");
+        }
+        
+        if(map.containsKey(removeName)){
+            map.remove(removeName);
+            System.out.println("Caregiver "+removeName+" has been removed from the schedule.");
+        }else{
+            System.out.println("caregiver "+removeName+" not found for removal.");
+        }
+        
+        if(map.containsKey(searchName)){
+            System.out.println("Caregiver "+searchName+" exists in the system.");
+        }else{
+            System.out.println("Caregiver "+searchName+" does not exist in the system.");
+        }
+        
+        int total = 0;
+        for(Map.Entry<String,Integer> e : map.entrySet()){
+            total = total + e.getValue();
+        }
+        
+        System.out.println("Total days worked: "+total);
+        
+    }
+}tem.out.println("Total days worked: "+total);
+        
+    }
+}

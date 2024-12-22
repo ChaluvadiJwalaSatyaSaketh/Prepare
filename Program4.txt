@@ -1,0 +1,83 @@
+import java.util.*;
+
+class BookNotFoundException extends Exception{
+    BookNotFoundException(){
+        super("");
+    }
+    
+    BookNotFoundException(String message){
+        super(message);
+    }
+    
+}
+
+class Main{
+    public static void main(String[] args){
+        Scanner scan = new Scanner(System.in);
+        
+        HashMap<String,Integer> map = new HashMap<>();
+        
+        int n = scan.nextInt();
+        
+        for(int i=1;i<=n;i++){
+            scan.nextLine();
+            String name = scan.nextLine();
+            int count = scan.nextInt();
+            map.put(name,count);
+        }
+        
+        scan.nextLine();
+        String displayName = scan.nextLine();
+        String removeName = scan.nextLine();
+        String searchName = scan.nextLine();
+        
+        try{
+            if(!map.containsKey(displayName))
+                throw new BookNotFoundException(displayName+" not found");
+            else
+                System.out.println(displayName+" has been borrowed "+map.get(displayName)+" times.");
+        }catch(BookNotFoundException e){
+            System.out.println(e.getMessage());   
+        }
+        
+        try{
+            if(!map.containsKey(removeName))
+                throw new BookNotFoundException();
+            else{
+                map.remove(removeName);
+                System.out.println(removeName+" has been removed from the library.");
+            } 
+        }catch(BookNotFoundException e){
+            System.out.println("Book "+removeName+" not found.");
+        }
+        
+        try{
+            if(!map.containsKey(searchName)){
+                throw new BookNotFoundException();
+            }else{
+                System.out.println("Book "+searchName+" exists in the library.");
+            }
+        }catch(BookNotFoundException e){
+            System.out.println("Book "+searchName+" does not exists in the library.");
+        }
+        
+        
+        int totalCount = 0;
+        for(Map.Entry<String,Integer> e : map.entrySet()){
+            totalCount = totalCount + e.getValue();
+        }
+        
+        System.out.println("Total Books Borrowed: "+totalCount);
+        
+        
+        
+        
+        
+    }
+}
+
+
+
+
+
+

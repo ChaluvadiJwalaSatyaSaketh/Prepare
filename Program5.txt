@@ -1,0 +1,91 @@
+
+Library Book Borrowing Tracker Using HashMap
+
+You are building a system to track books borrowed from a library. The system should store the titles of books along with the number of times they have been borrowed. Users should be able to add, update, or remove book records, check if a book exists, and retrieve specific borrow counts. Additionally, the system should calculate the total number of books borrowed from the library.
+
+If any operation attempts to access a book that does not exist in the system, a custom exception, BookNotFoundException, should be thrown and handled appropriately.
+
+Operations to be Performed
+1.Add Book Records: Input the number of books and their respective titles and borrow counts.
+
+2.Retrieve Borrow Count: Look up the total number of times a specific book has been borrowed by its title.
+
+3.Remove Book Records: Remove a book's record from the system.
+
+4.Check if a Book Exists: Verify if a specific book is in the system based on its title.
+
+5.Calculate Total Borrow Count: Display the total number of times books have been borrowed.
+
+
+
+
+Input Format
+
+Adding Books:
+•The first line contains an integer n, representing the number of books to add. If n value is not greater then 0, terminate the program with message "Invalid number".
+
+•For each book, input:
+	O The first line contains the book’s title (String).
+	O The second line contains the borrow count (Integer).
+	
+Perform Operations:
+
+•A line containing the title of a book to retrieve its borrow count.
+•A line containing the title of a book to remove from the system.
+•A line containing the title of a book to check if it exists in the system.
+
+Output Format
+
+Retrieving Borrow Count:
+	•If found, print: [Book title] has been borrowed [count] times.
+	
+	•If not found, throw and catch the BookNotFoundException and print: Book [Book title] not found.
+	Removing a Book:
+	
+	•If found and removed, print: Book [Book title] has been removed from the library.
+	
+	•If not found, throw and catch the BookNotFoundException and print: Book [Book title] not found for removal.
+
+Cecking if a Book Exists:
+	•If the book exists, print: Book [Book title] exists in the library.
+	
+	•If the book doesn’t exist, throw and catch the BookNotFoundException and print: Book [Book title] does not exist in the library.
+
+Calculating Total Borrow Count:
+	•Print the total borrow count of all books: Total Books Borrowed: [total count]
+
+
+Sample Input 1
+3
+The Alchemist
+150
+To Kill a Mockingbird
+200
+1984
+100
+The Alchemist
+To Kill a Mockingbird
+1984
+
+Sample Output 1
+The Alchemist has been borrowed 150 times.
+Book To Kill a Mockingbird has been removed from the library.
+Book 1984 exists in the library.
+Total Books Borrowed: 250
+
+
+Sample Input 2
+2
+The Great Gatsby
+250
+Pride and Prejudice
+300
+Moby Dick
+War and Peace
+Anna Karenina
+
+Sample Output 2
+Book Moby Dick not found.
+Book War and Peace not found for removal.
+Book Anna Karenina does not exist in the library.
+Total Books Borrowed: 550

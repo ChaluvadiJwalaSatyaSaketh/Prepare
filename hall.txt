@@ -1,0 +1,109 @@
+import java.util.*;
+
+class Hall implements Comparable<Hall>{
+    private String name;
+    private String contactNumber;
+    private double costPerDay;
+    private String ownerName;
+    
+    Hall(){
+        this("","",0.0,"");
+    }
+    
+    Hall(String name,String contactNumber,double costPerDay,String ownerName){
+        this.name = name;
+        this.contactNumber = contactNumber;
+        this.costPerDay = costPerDay;
+        this.ownerName = ownerName;
+    }
+    
+    public void setName(String name){
+        this.name = name;
+    }
+    
+    public String getName(){
+        return name;
+    }
+    
+    public void setContactNumber(String contactNumber){
+        this.contactNumber = contactNumber;
+    }
+    
+    public String getContactNumber(){
+        return contactNumber;
+    }
+    
+    public void setCostPerDay(double costPerDay){
+        this.costPerDay = costPerDay;
+    }
+    
+    public double getCostPerDay(){
+        return costPerDay;
+    }
+    
+    public void setOwnerName(String ownerName){
+        this.ownerName = ownerName;
+    }
+    
+    public String getOwnerName(){
+        return ownerName;
+    }
+    
+    public String toString(){
+        return name+" "+contactNumber+" "+costPerDay+" "+ownerName;
+    }
+    
+    
+    public int compareTo(Hall h2){
+        //return Double.compare(this.costPerDay,h2.costPerDay);
+        if(this.costPerDay > h2.costPerDay)
+            return 1;
+        else if(this.costPerDay < h2.costPerDay)
+            return -1;
+        else{
+            return 0;
+        }
+            
+        
+    }
+}
+
+class NameComparator implements Comparator<Hall>
+{
+    public int compare(Hall h1,Hall h2){
+        return h1.getName().compareTo(h2.getName());
+    }
+}
+
+class Main{
+    public static void main(String[] args){
+        Scanner scan = new Scanner(System.in);
+        
+        ArrayList<Hall> list = new ArrayList<>();
+        
+        int n = scan.nextInt();
+        scan.nextLine();
+        
+        for(int i=1;i<=n;i++){
+            String name = scan.nextLine();
+            String contact = scan.nextLine();
+            double cost = scan.nextDouble();
+            scan.nextLine();
+            String owner = scan.nextLine();
+            
+            Hall hall = new Hall(name,contact,cost,owner);
+            list.add(hall);
+        }
+                    
+        Collections.sort(list);
+        
+        for(Hall h : list){
+            System.out.println(h);
+        }
+    }
+}
+
+
+
+
+

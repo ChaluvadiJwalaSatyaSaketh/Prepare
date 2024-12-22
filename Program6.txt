@@ -1,0 +1,77 @@
+import java.util.*;
+
+class Main{
+    public static void main(String[] args){
+        Scanner scan = new Scanner(System.in);
+        
+        HashSet<Integer> set = new HashSet<>();
+        
+        int n = scan.nextInt();
+        
+        for(int i=1;i<=n;i++){
+            set.add(scan.nextInt());
+        }
+        
+        Integer searchData = scan.nextInt();
+        Integer deleteData = scan.nextInt();
+        
+        if(set.contains(searchData)){
+            System.out.println("The machine ID "+searchData+" is present in the HashSet.");
+        }else{
+            System.out.println("The machine ID "+searchData+" is not present in the HashSet.");
+        }
+        
+        if(set.contains(deleteData)){
+            set.remove(deleteData);
+            System.out.println("The machine ID "+deleteData+" was removed from the HashSet.");
+        }else{
+            System.out.println("The machine ID "+deleteData+" was not found in the HashSet.");
+        }
+        
+        int oddIds = 0;
+        
+        System.out.println("Updated list of machine IDs:");
+        for(Integer e : set){
+            System.out.println("Machine ID: "+e);
+            if(e%2 == 1){
+                oddIds++;
+            }
+        }
+        
+        System.out.println("Number of odd Machine IDs: "+oddIds);
+        
+        int sum=0;
+        for(Integer e : set){
+            if(e%10 == 0){
+                sum = sum + e;
+            }
+        }
+        
+        System.out.println("Sum : "+sum);
+        
+        Iterator<Integer> it = set.iterator();
+        
+        while(it.hasNext()){
+            int e = it.next();
+            if((e+"").contains("7")){
+                it.remove();
+            }
+        }
+        
+        System.out.println(set);
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    }
+}

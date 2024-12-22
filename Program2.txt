@@ -1,0 +1,169 @@
+import java.util.*;
+
+class Book{
+    private int serialNumber;
+    private String title;
+    private String author;
+    private int decade;
+    
+    Book(){
+        
+    }
+    
+    Book(int serialNumber,String title,String author,int decade){
+        this.serialNumber = serialNumber;
+        this.title = title;
+        this.author = author;
+        this.decade = decade;
+    }
+    
+    public void setSerialNumber(int serialNumber){
+        this.serialNumber = serialNumber;
+    }
+    
+    public int getSerialNumber(){
+        return this.serialNumber;
+    }
+    
+    public void setTitle(String title){
+        this.title = title;
+    }
+    
+    public String getTitle(){
+        return this.title;
+    }
+    
+    public void setAuthor(String author){
+        this.author = author;
+    }
+    
+    public String getAuthor(){
+        return this.author;
+    }
+    
+    public void setDecade(int decade){
+        this.decade = decade;
+    }
+    
+    public int getDecade(){
+        return this.decade;
+    }
+    
+    public boolean equals(Object obj){
+        Book b2 = (Book) obj;
+        if(this.serialNumber == b2.serialNumber){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
+    public String toString(){
+        return "BookItem Serial Number: "+serialNumber+"\nTitle: "+title+"\nAuthor: "+author+"\nDecade: "+decade;
+    }
+}
+
+class BookstoreSystem{
+ 
+    private ArrayList<Book> list = new ArrayList<Book>();
+    
+    public void addBookItem(int serialNumber,String title,String author, int decade){
+        Book book = new Book(serialNumber,title,author,decade);
+        list.add(book);
+    }
+    
+    public void retrieveBookItem(int serialNumber){
+        Book dummy = new Book();
+        dummy.setSerialNumber(serialNumber);
+        
+        int index = list.indexOf(dummy);
+        
+        if(index == -1){
+            System.out.println("Book item with Serial Number "+serialNumber+" does not exist.");
+        }else{
+            Book book = list.get(index);
+            System.out.println("Book item with Serial Number: "+serialNumber);
+            System.out.println(book);
+        }
+    }
+    
+    public void checkForBooksByDecade(int decade){
+        
+        boolean found = false;
+        
+        for(Book b : list){
+            if(b.getDecade() == decade){
+                found = true;
+            }
+        }
+        
+        if(found){
+            System.out.println("Book from the decade "+decade+" are in stock.");
+        }else{
+            System.out.println("No books from the decade "+decade+" in stock.");
+        }
+    }
+    
+    public int sumOfDecadesForBook(int decade){
+        int sum = 0;
+        
+        for(Book b : list){
+            if(b.getDecade() == decade){
+                sum = sum + b.getDecade();
+            }
+        }
+        
+        return sum;
+    }
+    
+    public void displayBooks(){
+        for(Book b : list){
+            System.out.println(b);
+        }
+    }
+}
+
+class Main{
+    public static void main(String[] args){
+        Scanner scan = new Scanner(System.in);
+        
+        BookstoreSystem bss = new BookstoreSystem();
+        
+        int n = scan.nextInt();
+        
+        for(int i=1;i<=n;i++){
+            int serialNumber = scan.nextInt();
+            scan.nextLine();
+            String title = scan.nextLine();
+            String author = scan.nextLine();
+            int decade = scan.nextInt();
+            
+            bss.addBookItem(serialNumber,title,author,decade);
+        }
+        
+        int searchSerialNumber = scan.nextInt();
+        int searchDecade = scan.nextInt();
+        int sumDecade = scan.nextInt();
+        
+        System.out.println("Book Collection:");
+        bss.displayBooks();
+        bss.retrieveBookItem(searchSerialNumber);
+        bss.checkForBooksByDecade(searchDecade);
+        System.out.println("Sum of Decades for books from the decade: "+bss.sumOfDecadesForBook(sumDecade));
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

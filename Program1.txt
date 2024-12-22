@@ -1,0 +1,156 @@
+// You are using Java
+import java.util.*;
+
+class Appliance{
+    private int id;
+    private String name;
+    private boolean status;
+    
+    private static int counter;
+    
+    static{
+        counter = 301;
+    }
+    
+    Appliance(){
+        
+    }
+    
+    Appliance(String name){
+        id = counter;
+        counter++;
+        this.name = name;
+        this.status = false;
+    }
+    
+    public void setId(int id){
+        this.id = id;
+    }
+    
+    public int getId(){
+        return id;
+    }
+    
+    public void setName(String name){
+        this.name = name;
+    }
+    
+    public String getName(){
+        return name;
+    }
+    
+    public void setStatus(boolean status){
+        this.status = status;
+    }
+    
+    public boolean getStatus(){
+        return status;
+    }
+    
+    public String toString(){
+        return "Appliance{id="+id+", name='"+name+"', rented="+status+"}";
+    }
+    
+    public boolean equals(Object o2){
+        Appliance a2 = (Appliance)o2;
+        if(this.id == a2.id)
+            return true;
+        else
+            return false;
+    }
+}
+
+class ApplianceRentalSystem{
+    
+    private ArrayList<Appliance> list = new ArrayList<>();
+    
+    
+    public void addAppliance(String name){
+        Appliance appliance = new Appliance(name);
+        list.add(appliance);
+    }
+    
+    public void displayAllAppliances(){
+        for(Appliance a : list){
+            System.out.println(a);
+        }
+    }
+    
+    public void rentAppliance(int id){
+        Appliance searchAppliance = new Appliance();
+        searchAppliance.setId(id);
+        
+        int index = list.indexOf(searchAppliance);
+        if(index == -1){
+            System.out.println("Appliance with ID "+id+" not found.");
+        }else{
+            Appliance appliance = list.get(index);
+            appliance.setStatus(true);
+            System.out.println("Appliance with ID "+id+" is rented.");
+        }
+    }
+    
+    public void removeAppliance(int id){
+        Appliance searchAppliance = new Appliance();
+        searchAppliance.setId(id);
+        
+        int index = list.indexOf(searchAppliance);
+        if(index == -1){
+            System.out.println("Appliance with ID "+id+" not found.");
+        }else{
+            list.remove(index);
+            System.out.println("Appliance with ID "+id+" removed successfully.");
+        }
+    }
+    
+    public int countNonRentedAppliances(){
+        int count = 0;
+        for(Appliance a : list){
+            if(a.getStatus() == false){
+                count++;
+            }
+        }
+        return count;
+    }
+}
+
+
+class Main{
+    public static void main(String[] args){
+        Scanner scan = new Scanner(System.in);
+        ApplianceRentalSystem ars = new ApplianceRentalSystem();
+    
+        int n = scan.nextInt();
+        scan.nextLine();
+        for(int i=1;i<=n;i++){
+            String name = scan.nextLine();
+            ars.addAppliance(name);
+        }
+        
+        int rentApplianceId = scan.nextInt();
+        int deleteApplianceId = scan.nextInt();
+        
+        System.out.println("Appliance in the inventory:");
+        ars.displayAllAppliances();
+        
+        ars.rentAppliance(rentApplianceId);
+        ars.removeAppliance(deleteApplianceId);
+        
+        System.out.println("Updated inventory:");
+        ars.displayAllAppliances();
+        
+        System.out.println("Total non-rented appliances: "+ars.countNonRentedAppliances());
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+

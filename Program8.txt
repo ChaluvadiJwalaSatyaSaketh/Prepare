@@ -1,0 +1,157 @@
+import java.sql.*;
+import java.util.*;
+
+class Main{
+    
+    
+    public static void main(String[] args){
+        Scanner scan = new Scanner(System.in);
+        
+        Connection conn = null;
+        PreparedStatement ps = null;
+        Statement st = null;
+        ResultSet rs = null;
+        String url = "jdbc:mysql://localhost/ri_db";
+        String username = "test";
+        String password = "test123";
+        String insertSQL = "INSERT INTO student VALUES(?,?,?,?,?,?)";
+        String selectSQL = "SELECT * FROM student";
+        String updateSQL = "UPDATE student SET department=?, yearofstudy=?, grade=? WHERE studentid=?";
+        
+        try{
+            conn = DriverManager.getConnection(url,username,password);
+            
+            int choice = scan.nextInt();
+            if(choice == 1){
+                int studentid = scan.nextInt();
+                scan.nextLine();
+                String studentname = scan.nextLine();
+                String department = scan.nextLine();
+                int year = scan.nextInt();
+                scan.nextLine();
+                String grade = scan.nextLine();
+                String dob = scan.nextLine();
+                
+                
+                if(year<=2000 || studentname.trim().length()==0)
+                {
+                    System.out.println("Invalid input");
+                    return;
+                }else{
+                    ps = conn.prepareStatement(insertSQL);
+                    ps.setInt(1,studentid);
+                    ps.setString(2,studentname);
+                    ps.setString(3,department);
+                    ps.setInt(4,year);
+                    ps.setString(5,grade);
+                    ps.setString(6,dob);
+                    
+                    int flag=ps.executeUpdate();
+                    
+                    if(flag!=0){
+                        System.out.println("Student added successfully");
+                        st = conn.createStatement();
+                        rs = st.executeQuery(selectSQL);
+                        while(rs.next()){
+                            System.out.println("Student ID: "+rs.getInt(1)+", Student Name: "+rs.getString(2)+", Department: "+rs.getString(3)+", Year of Study: "+rs.getInt(4)+", Grade: "+rs.getString(5)+", Date of birth: "+rs.getString(6));
+                        }
+                    }
+                    
+                    
+                }
+                
+                
+            }
+            else if(choice == 2){
+                int studentid = scan.nextInt();
+                scan.nextLine();
+                String department = scan.nextLine();
+                int year = scan.nextInt();
+                scan.nextLine();
+                String grade = scan.nextLine();
+                
+                
+                if(year<=2000)
+                {
+                    System.out.println("Invalid input");
+                    return;
+                }else{
+                    ps = conn.prepareStatement(updateSQL);
+
+                    ps.setString(1,department);
+                    ps.setInt(2,year);
+                    ps.setString(3,grade);
+                    ps.setInt(4,studentid);
+                    
+                    int flag=ps.executeUpdate();
+                    
+                    if(flag!=0){
+                        System.out.println("Student updated successfully");
+                       
+                    }else{
+                        System.out.println("Record not found");
+                    }
+                    ps = conn.prepareStatement("SELECT * FROM student");
+                    rs = ps.executeQuery();
+                    while(rs.next()){
+                        System.out.println("Student ID: "+rs.getInt(1)+", Student Name: "+rs.getString(2)+", Department: "+rs.getString(3)+", Year of Study: "+rs.getInt(4)+", Grade: "+rs.getString(5)+", Date of birth: "+rs.getString(6));
+                    }
+                }
+                
+                
+            }
+            else if(choice == 3){
+                int studentid = scan.nextInt();
+                String deleteSQL = "DELETE FROM student where studentid=?";
+                ps = conn.prepareStatement(deleteSQL);
+                ps.setInt(1,studentid);
+                    
+                int flag=ps.executeUpdate();
+                    
+                if(flag!=0){
+                        System.out.println("Student deleted successfully");
+                        ps = conn.prepareStatement("SELECT * FROM student");
+                        rs = ps.executeQuery();
+                        while(rs.next()){
+                            System.out.println("Student ID: "+rs.getInt(1)+", Student Name: "+rs.getString(2)+", Department: "+rs.getString(3)+", Year of Study: "+rs.getInt(4)+", Grade: "+rs.getString(5)+", Date of birth: "+rs.getString(6));
+                        }
+                }else{
+                    System.out.println("Record not found");
+                }
+            }
+            else if(choice == 4){
+                String selectSQL2 = "SELECT * from student ORDER BY dateofbirth DESC, studentname";
+                ps = conn.prepareStatement(selectSQL2);
+                
+                    
+                rs=ps.executeQuery();
+                    
+                while(rs.next()){
+                    System.out.println("Student ID: "+rs.getInt(1)+", Student Name: "+rs.getString(2)+", Department: "+rs.getString(3)+", Year of Study: "+rs.getInt(4)+", Grade: "+rs.getString(5)+", Date of birth: "+rs.getString(6));
+                }
+            }
+            else if(choice == 5){
+                scan.nextLine();
+                String data1 = scan.nextLine();
+                String data2 = scan.nextLine();
+                String selectSQL3 = "SELECT * from student WHERE studentname LIKE '"+data1+"%' AND studentname LIKE '%"+data2+"'";
+                ps = conn.prepareStatement(selectSQL3);
+                
+                    
+                rs=ps.executeQuery();
+                    
+                while(rs.next()){
+                    System.out.println("Student ID: "+rs.getInt(1)+", Student Name: "+rs.getString(2)+", Department: "+rs.getString(3)+", Year of Study: "+rs.getInt(4)+", Grade: "+rs.getString(5)+", Date of birth: "+rs.getString(6));
+                }
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally{
+            try{
+                conn.close();
+            }catch(SQLException e){
+                e.printStackTrace();
+            }
+        }
+    }
+}

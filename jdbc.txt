@@ -1,0 +1,113 @@
+import java.sql.*;
+import java.util.*;
+
+class Main{
+    public static void main(String[] args){
+        Scanner scan = new Scanner(System.in);
+        Connection conn = null;
+        PreparedStatement ps = null;
+        Statement st = null;
+        ResultSet rs = null;
+        
+        String url = "jdbc:mysql://localhost/ri_db";
+        String username = "test";
+        String password = "test123";
+        
+        
+        try{
+
+            conn = DriverManager.getConnection(url,username,password);
+            
+            int choice = scan.nextInt();
+            
+            switch(choice){
+                case 1: {
+                    int loanid = scan.nextInt();
+                    scan.nextLine();
+                    String name = scan.nextLine();
+                    double loanamt = scan.nextDouble();
+                    double interestrate = scan.nextDouble();
+                    int term = scan.nextInt();
+                    ps = conn.prepareStatement("INSERT INTO loans VALUES(?,?,?,?,?)");
+                    
+                    ps.setInt(1,loanid);
+                    ps.setString(2,name);
+                    ps.setDouble(3,loanamt);
+                    ps.setDouble(4,interestrate);
+                    ps.setInt(5,term);
+                    ps.executeUpdate();
+                    
+                    System.out.println("Loan added successfully.");
+                    
+                    st = conn.createStatement();
+                    rs = st.executeQuery("SELECT * FROM loans");
+                    while(rs.next()){
+                        System.out.println("Loan ID: "+rs.getInt(1)+", Borrower Name: "+rs.getString(2)+", Loan Amount: "+rs.getDouble(3)+", Interest Rate: "+rs.getDouble(4)+"%, Loan Term: "+rs.getInt(5)+" years");
+                    }
+                }
+                break;
+                case 2: {
+                    int loanid = scan.nextInt();
+                    double interestRate = scan.nextDouble();
+                    
+                    ps = conn.prepareStatement("UPDATE loans SET interestRate=? WHERE loanId=?");
+                    
+                    ps.setDouble(1,interestRate);
+                    ps.setInt(2,loanid);
+                
+                    int flag = ps.executeUpdate();
+                    if(flag!=0)
+                        System.out.println("Loan updated successfully.");
+                    else
+                        System.out.println("Load ID not found");
+                    
+                    st = conn.createStatement();
+                    rs = st.executeQuery("SELECT * FROM loans");
+                    while(rs.next()){
+                        System.out.println("Loan ID: "+rs.getInt(1)+", Borrower Name: "+rs.getString(2)+", Loan Amount: "+rs.getDouble(3)+", Interest Rate: "+rs.getDouble(4)+"%, Loan Term: "+rs.getInt(5)+" years");
+                    }
+                }
+                break;
+                case 3: {
+                    int loanid = scan.nextInt();
+                    
+                    ps = conn.prepareStatement("DELETE FROM loans WHERE loanId = ?");
+
+                    ps.setInt(1,loanid);
+                
+                    int flag = ps.executeUpdate();
+                    
+                    if(flag!=0)
+                        System.out.println("Loan deleted successfully.");
+                    else
+                        System.out.println("Load ID not found");
+                    
+                    st = conn.createStatement();
+                    rs = st.executeQuery("SELECT * FROM loans");
+                    while(rs.next()){
+                        System.out.println("Loan ID: "+rs.getInt(1)+", Borrower Name: "+rs.getString(2)+", Loan Amount: "+rs.getDouble(3)+", Interest Rate: "+rs.getDouble(4)+"%, Loan Term: "+rs.getInt(5)+" years");
+                    }
+                }
+                break;
+                case 4: {
+                    
+                    st = conn.createStatement();
+                    rs = st.executeQuery("SELECT * FROM loans");
+                    while(rs.next()){
+                        System.out.println("Loan ID: "+rs.getInt(1)+", Borrower Name: "+rs.getString(2)+", Loan Amount: "+rs.getDouble(3)+", Interest Rate: "+rs.getDouble(4)+"%, Loan Term: "+rs.getInt(5)+" years");
+                    }
+                }
+                break;
+            }
+            
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally{
+            try{
+                conn.close();
+            }catch(SQLException e){
+                e.printStackTrace();
+            }
+        }
+    }
+}

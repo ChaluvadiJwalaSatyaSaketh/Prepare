@@ -1,0 +1,181 @@
+1)	Shopping Cart Discount Management using HashMap
+
+You are tasked with developing a simple shopping cart management system for a retail store. The system should allow the user to input the names and prices of items they want to purchase. After the data is collected, the system should ask for a total price threshold. If the total price of items purchased exceeds the threshold, the customer will receive a 10% discount on the total bill. The program will ensure that only positive price values are accepted and will display the details of the purchased items, the total bill before discount, and the total bill after applying the discount if applicable.
+Input Format 
+The first line of input consists of an integer representing the number of items the customer wants to purchase.
+The next two lines consist of the user inputs for each item:
+•	Item name (String)
+•	Item price (double, must be a positive number)
+After entering the item details, the last line of input consists of the total price threshold.
+Output Format 
+The output displays the names and prices of the items (2 decimal values) purchased.
+The total bill (2 decimal values) before any discount.
+If the total bill exceeds the threshold, the output displays the total bill (2 decimal values) after a 10% discount. if not then "No discount applied as the total bill does not exceed the threshold."
+If no items are purchased, the output prints a message stating that "No items were purchased".
+Sample Input 
+2
+Banana
+0.99
+Juice
+3.50
+10.00
+Sample Output 
+Items purchased:
+Item: Juice, Price: 3.50
+Item: Banana, Price: 0.99
+Total bill before discount: 4.49
+No discount applied as the total bill does not exceed the threshold.
+2)	Task Management using ArrayList for Delivery Parcels
+
+You are developing a task management application aimed at helping delivery personnel organize their parcel deliveries effectively. The application allows users to add delivery tasks to their to-do list and prioritize them based on their importance. To enhance the functionality, the application needs to sort the delivery tasks in ascending order by their importance level using a comparator.
+Input Format 
+For each delivery task:
+•	Enter the parcel description. The application should accept between 5 and 10 tasks, and the parcel description should be of String data type.
+•	Enter the importance level (an integer between 1 and 10, inclusive).
+To indicate the end of the task entry, type "Completed".
+Output Format 
+After all delivery tasks have been entered, the program displays the tasks sorted by importance level. The output format is as follows:
+•	For each task in the to-do list:
+•	Display the parcel description followed by its importance level.
+•	Each task is presented on a separate line.
+Note: The tasks are sorted in ascending order by their importance values.
+Sample Input 
+Deliver electronics package
+3
+Deliver fragile items
+2
+Deliver furniture
+5
+Deliver documents
+1
+Deliver grocery items
+4
+Completed
+
+
+
+Sample Output 
+Delivery Tasks by Importance:
+Task: Deliver documents, Importance: 1
+Task: Deliver fragile items, Importance: 2
+Task: Deliver electronics package, Importance: 3
+Task: Deliver grocery items, Importance: 4
+Task: Deliver furniture, Importance: 5
+
+3 ) Delivery Service Interface
+
+You are developing a delivery service system that handles deliveries through various methods. Create an interface named DeliveryMethod with a method deliverPackage(). Implement this interface for two delivery methods: DroneDelivery and BikeCourier. Take user input for the package weight and simulate processing deliveries using both methods.
+Input Format 
+The input consists of an integer which represents the package weight.
+Output Format 
+The output displays the simulated processing of deliveries using both drone delivery and bike courier methods. The weight will be rounded to two decimal places.
+Sample Input 
+5.75
+Sample Output 
+Processing drone delivery of package weighing 5.75 kg
+Drone delivery processed successfully!
+Processing bike courier delivery of package weighing 5.75 kg
+Bike courier delivery processed successfully!
+
+4)	You are required to implement the following function:
+
+public static int[] rearrangeBySign(int[] array);
+The function accepts an array of integers as its argument. The function should rearrange the array so that all positive numbers appear before all negative numbers. The relative order of the positive numbers and negative numbers should be maintained.
+Input Format 
+The first line should contain an integer representing the size of the array.
+The second line should contain an array of integers.
+Output Format 
+An array where all positive numbers appear before all negative numbers, maintaining the relative order.
+Constraints 
+The input array contains both positive and negative integers.
+Sample Input 
+6
+-1 2 -3 4 -5 6
+Sample Output 
+2 4 6 -1 -3 -5 
+
+5)	Flower Collection Management System
+You are tasked with developing a Java program to manage a collection of flower species for a botanical garden. The program will assist the garden's curators in keeping track of the different flower species that are part of their exhibits. As the garden hosts a diverse array of flowers from various regions, the curators want to ensure that the list of species remains unique and easily manageable. Therefore, they have decided to use a HashSet to store the names of the flower species.
+
+Input Format 
+The first line should contain an integer representing the size of the HashSet.
+The next lines should contain the elements of the HashSet, each representing a unique flower species.
+The following line should consist of a String representing the species to be searched within the set.
+Finally, the subsequent line should consist of a String representing the species to be deleted from the set.
+Output Format 
+The output should show the flower species list after the deletion and indicate the presence or absence of the searched and deleted elements.
+
+
+
+
+
+Sample Input 
+5
+Rose
+Lily
+Sunflower
+Daisy
+Orchid
+Sunflower
+Daisy
+Sample Output 
+Flowers in the Set:
+Orchid
+Rose
+Daisy
+Sunflower
+Lily
+Flower Sunflower found in the Set
+Flower Daisy deleted from the Set
+Flowers in the Set:
+Orchid
+Rose
+Sunflower
+Lily
+
+
+
+
+1.
+Employee Salary Management using HashMap
+
+You are tasked with developing a simple employee salary management system for a company. The system should allow the HR manager to input the names and salaries of employees. After the data is collected, the system should ask for a salary threshold and then display the names of all employees whose salaries are above that threshold. The program will ensure that only positive salary values are accepted and will display a message if no employees meet the salary criteria.
+
+Input Format
+The first line of input consists of an integer representing the number of employees. 
+The next two lines consist of the user inputs for each employee:
+- Employee name (String)
+- Employee salary (double, must be a positive number)
+After entering employee details, the last line of input consists of the salary threshold.
+
+
+Output Format
+The output displays the names and salaries of employees whose salaries are greater than the provided threshold. 
+
+Please note that only upto two decimal places are allowed while printing the salary.
+
+If no employees meet the criteria, the output prints a message stating that "No employees have a salary greater than the threshold". 
+
+Sample Input
+1
+Ajay
+23500.50
+25500.00
+
+Sample Output
+Employee: Pranab, Salary: 32500.23
+
+
+
+
+2.
+
+Imagine you are developing a text processing application where you need to analyze the frequency of each character in a user- provided text input. Your application aims to provide statistical insights into the textual content, such as character frequency distributions, without distinguishing between uppercase and lowercase letters using HashMap
+
+You need to implement a Java method that counts the occurrences of each character in a given string, treating uppercase and lowercase versions of the same character as identical.
+
+Input Format
+It will take take user input as string
+
+Output Format
+Its should print each char and the count of the particular

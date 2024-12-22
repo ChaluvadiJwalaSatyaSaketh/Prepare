@@ -1,0 +1,80 @@
+
+Single File Programming Question
+You are tasked with developing a recruitment sorting system using Java. This system should take in a list of candidates including their name, qualification, gender, and experience, which will be stored in a class "Recruitment" and sorting will be based on their experience and name.
+
+The sorting rules are as follows:
+
+Primary Criterion: Candidates should be sorted based on their years of experience in descending order (from highest to lowest).
+
+• Secondary Criterion: If two candidates have the same years of experience, they should be sorted by their names in reverse alphabetical order.
+
+Input format:
+
+First line specifies the number of employees "n" 
+In the following lines name, qualification, gender
+
+Output format:
+Print the details of the faculty in the sorted order of their experience
+
+Sample test cases:
+Input 1:
+2
+Ram Kumar
+BE CSE 
+Male
+2
+Pravin
+BE ECE
+Male
+3
+
+
+
+Output 1:
+Pravin
+BE ECE 
+Male
+3
+Ram Kumar
+BE CSE
+Male
+2
+
+
+
+
+Input 2:
+4
+Raju
+BE CSE
+Male 
+3
+Pravin
+BE CSE
+Male 
+2
+Muzam
+BE Mechanical
+Male
+1
+Anish
+BE EEE
+Male 
+2
+Output 2:
+Raju
+BE CSE 
+Male
+3
+Pravin
+BE CSE
+Male
+2
+Anish
+BE EEE
+Male
+2
+Muzam
+BE Mechanical
+Male
+1
