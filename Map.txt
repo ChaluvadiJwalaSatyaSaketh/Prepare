@@ -1,0 +1,71 @@
+import java.util.*;
+
+class Main{
+    public static void main(String[] args)
+    {
+        Scanner scan = new Scanner(System.in);
+        
+        HashMap<String,Integer> map = new HashMap<>();
+        
+        int n = scan.nextInt();
+        
+        for(int i=1;i<=n;i++)
+        {
+            scan.nextLine();
+            String name = scan.nextLine();
+            int count = scan.nextInt();
+            
+            map.put(name,count);
+        }
+        
+        scan.nextLine();
+        String searchBook = scan.nextLine();
+        
+        if(map.containsKey(searchBook))
+        {
+            System.out.println("Book "+searchBook+" has been borrowed "+map.get(searchBook)+" times.");
+        }
+        else{
+            System.out.println("Book "+searchBook+" not found.");
+        }
+        
+        String removeBook = scan.nextLine();
+        
+        if(map.containsKey(removeBook))
+        {
+            map.remove(removeBook);
+            System.out.println("Book "+removeBook+" has been removed from the library.");
+        }
+        else
+        {
+            System.out.println("Book "+removeBook+" not found for removal.");
+        }
+        
+        String searchBook2 = scan.nextLine();
+        
+        if(map.containsKey(searchBook2))
+        {
+            System.out.println("Book "+searchBook2+" exists in the library.");
+        }
+        else{
+            System.out.println("Book "+searchBook2+" does not exist in the library.");
+        }
+        
+        
+        int total = 0;
+        
+        for(Map.Entry<String,Integer> e : map.entrySet())
+        {
+
+            total = total + e.getValue();
+        }
+        
+        System.out.println("Total Books Borrowed: "+total);
+  
+    }
+}
+
+
+
+
+

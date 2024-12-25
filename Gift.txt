@@ -1,0 +1,229 @@
+import java.util.*;
+
+class Gift //implements Comparable<Gift>
+{
+    private int id;
+    private String name;
+    private boolean delivered;
+    
+    private static int counter = 501;
+    
+    
+    // public int compareTo(Gift g2)
+    // {
+    //     return Integer.compare(this.id,g2.id);
+    // }
+    
+    public Gift()
+    {
+        
+    }
+    
+    public Gift(String name)
+    {
+        this.id = counter++;
+        this.name = name;
+        this.delivered = false;
+    }
+    
+    public void setId(int id)
+    {
+        this.id = id;
+    }
+    
+    public int getId()
+    {
+        return this.id;
+    }
+    
+    public void setName(String name)
+    {
+        this.name = name;
+    }
+    
+    public String getName()
+    {
+        return name;
+    }
+    
+    public void setDelivered(boolean delivered)
+    {
+        this.delivered = delivered;
+    }
+    
+    public boolean getDelivered()
+    {
+        return this.delivered;
+    }
+    
+    public String toString(){
+        return "Gift{id="+id+", name='"+name+"', delivered="+delivered+"}";
+    }
+}
+
+class IdComparator implements Comparator<Gift>
+{
+    public int compare(Gift g1,Gift g2)
+    {
+        return Integer.compare(g1.getId(),g2.getId());
+    }
+}
+
+
+class BachelorPartyGiftSystem 
+{
+    private HashSet<Gift> set = new HashSet<>();
+    
+    public void addGift(String name)
+    {
+        Gift gift = new Gift(name);
+        set.add(gift);
+    }
+    
+    public void displayGifts()
+    {
+        Iterator<Gift> it = set.iterator();
+
+        while(it.hasNext())
+        {
+            Gift gift = it.next();
+            System.out.println(gift);
+        }
+    }
+    
+    public void displayGiftsSortedById()
+    {
+        
+        ArrayList<Gift> list = new ArrayList<>(set);
+        
+        IdComparator ic = new IdComparator();
+        
+        Collections.sort(list,ic);
+        
+        Iterator<Gift> it = list.iterator();
+        
+        
+        
+        while(it.hasNext())
+        {
+            Gift gift = it.next();
+            System.out.println(gift);
+        }
+    }
+    
+    public void deliverGift(int id)
+    {
+        Iterator<Gift> it = set.iterator();
+        
+        boolean found = false;
+        
+        while(it.hasNext())
+        {
+            Gift gift = it.next();
+            
+            if(gift.getId() == id)
+            {
+                gift.setDelivered(true);
+                found = true;
+                System.out.println("Gift with ID "+id+" has been delivered.");
+            }
+        }
+        
+        if(found == false)
+        {
+            System.out.println("Gift with ID "+id+" not found.");
+        }
+    }
+    
+    public void removeGift(int id)
+    {
+        Iterator<Gift> it = set.iterator();
+        
+        boolean found = false;
+        
+        while(it.hasNext())
+        {
+            Gift gift = it.next();
+            
+            if(gift.getId() == id)
+            {
+                it.remove();
+                found = true;
+                System.out.println("Gift with ID "+id+" removed successfully.");
+            }
+        }
+        
+        if(found == false)
+        {
+            System.out.println("Gift with ID "+id+" not found.");
+        }
+    }
+    
+    
+    public int countPendingGifts() 
+    {
+        Iterator<Gift> it = set.iterator();
+        
+        int count = 0;
+        
+        while(it.hasNext())
+        {
+            Gift gift = it.next();
+            if(gift.getDelivered() == false)
+            {
+                count++;
+            }
+        }
+        return count;
+    }
+}
+
+class Main 
+{
+    public static void main(String[] args)
+    {
+        Scanner scan = new Scanner(System.in);
+        
+        BachelorPartyGiftSystem bpgs = new BachelorPartyGiftSystem();
+        
+        int n = scan.nextInt();
+        scan.nextLine();
+        
+        for(int i=1;i<=n;i++)
+        {
+            String name = scan.nextLine();
+            bpgs.addGift(name);
+        }
+        
+        System.out.println("Gifts in the Inventory: ");
+        
+        bpgs.displayGiftsSortedById();
+        
+        int deliveredGiftId = scan.nextInt();
+        
+        bpgs.deliverGift(deliveredGiftId);
+        
+        int removeGiftId = scan.nextInt();
+        
+        bpgs.removeGift(removeGiftId);
+        
+        System.out.println("Updated Inventory: ");
+        bpgs.displayGifts();
+        
+        
+        int count = bpgs.countPendingGifts();
+        
+        System.out.println("Total pending gifts: "+count);
+        
+    }
+}
+
+
+
+
+
+
+
+
+
+

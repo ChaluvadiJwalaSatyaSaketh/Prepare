@@ -1,0 +1,181 @@
+import java.util.*;
+
+class Task //implements Comparable<Task>
+{
+    private String description;
+    private int level;
+    
+    // public int compareTo(Task t2)
+    // {
+    //     return Integer.compare(this.level,t2.level);
+    // }
+    
+    Task()
+    {
+        
+    }
+    
+    Task(String description,int level)
+    {
+        this.description = description;
+        this.level = level;
+    }
+    
+    public void setDescription(String description)
+    {
+        this.description = description;
+    }
+    
+    public String getDescription()
+    {
+        return description;
+    }
+    
+    public void setLevel(int level)
+    {
+        this.level = level;
+    }
+    
+    public int getLevel()
+    {
+        return level;
+    }
+    
+    public String toString()
+    {
+        return "Task: "+description+", Importance: "+level;
+    }
+}
+
+class LevelComparator implements Comparator<Task>
+{
+    public int compare(Task t1,Task t2){
+        return Integer.compare(t1.getLevel(),t2.getLevel());
+        //return t1.getDescription().compareTo(t2.getDescription());
+    }
+}
+
+class TaskManagementSystem
+{
+    HashSet<Task> set = new HashSet<>();
+    
+    public void addTask(String description,int level)
+    {
+        Task task1 = new Task(description,level);
+        set.add(task1);
+    }
+    
+    public void displayTasks()
+    {
+        ArrayList<Task> list = new ArrayList<>(set);
+        Collections.sort(list,new LevelComparator());
+        Iterator<Task> it = list.iterator();
+        System.out.println("Delivery Tasks by Importance:");
+        while(it.hasNext())
+        {
+            Task task2 = it.next();
+            System.out.println(task2);
+        }
+    }
+    
+    public void deleteTask(String description)
+    {
+        boolean found = false;
+        Iterator<Task> it = set.iterator();
+        while(it.hasNext())
+        {
+            Task task = it.next();
+            if(task.getDescription().equals(description))
+            {
+                it.remove();
+                found = true;
+                System.out.println("Task "+task.getDescription()+" deleted successfully.");
+            }
+        }
+        if(found == false)
+        {
+            System.out.println("Task "+description+" not found");
+        }
+    }
+    
+    public int getTotalOfLevel()
+    {
+        int total = 0;
+        Iterator<Task> it = set.iterator();
+        while(it.hasNext())
+        {
+            Task task = it.next();
+            total = total + task.getLevel();
+        }
+        return total;
+    }
+    
+    public void displayContains(String data)
+    {
+        int found = 0;
+        Iterator<Task> it = set.iterator();
+        while(it.hasNext())
+        {
+            Task task = it.next();
+            if(task.getDescription().contains(data))
+            {
+                System.out.println(task);
+                found++;
+            }
+        }
+        if(found == 0)
+        {
+            System.out.println("No task found with description containing "+data);
+        }
+        else{
+            System.out.println("No of tasks that contain "+data+" is "+found+" times");
+        }
+    }
+}
+
+class Main{
+    public static void main(String[] args){
+        Scanner scan = new Scanner(System.in);
+        
+        TaskManagementSystem tms = new TaskManagementSystem();
+        
+        while(true)
+        {
+            String description = scan.nextLine();
+            if(description.equals("Completed"))
+            {
+                break;
+            }
+            int level  = scan.nextInt();
+            scan.nextLine();
+            tms.addTask(description,level);
+        }
+        
+        tms.displayTasks();
+        
+        String deleteDescription = scan.nextLine();
+        tms.deleteTask(deleteDescription);
+        
+        tms.displayTasks();
+        
+        int total = tms.getTotalOfLevel();
+        System.out.println("Total of levels : "+total);
+        System.out.println("-------------------------------------");
+        
+        String data = scan.nextLine();
+        tms.displayContains(data);
+        
+        
+    }
+    
+}
+
+
+
+
+
+
+
+
+
+
