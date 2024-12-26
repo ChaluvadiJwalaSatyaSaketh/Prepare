@@ -1,0 +1,123 @@
+
+Product Inventory Management System using HashMap
+
+You are tasked with developing a Product Inventory Management System in Java using HashMap. The system should provide users with functionalities to manage their inventory efficiently.
+
+Functionalities to include:
+
+1. Add Product: Users should be able to add new products to the system by providing the product's name and quantity.
+
+2. Search and Delete Product: If a searched product is found, it is deleted from the inventory. If not the system notifies the user that the product was not found.
+
+3. Display All Products: Users should have the option to view all
+products stored in the system, including their names and quantities.
+
+4. Total Number of Products: The system should display the total number of products stored in the inventory.
+
+5. Clear Inventory: Users should be able to clear all products from the inventory in a single operation. 
+
+Input format :
+The first line consists of the size of the HashMap.
+The next lines consist of values representing products in the following format: "Product Name, Product Quantity".
+The last input consists of a String that represents the name to search and delete.
+
+Output format :
+The Output should display the product details.
+
+Sample test cases :
+
+Input 1:
+
+3
+Apples, 10
+Bananas, 20
+Oranges, 15
+Bananas
+
+Output 1:
+
+Bananas's Quantity: 20
+Bananas removed from inventory.
+Total number of products: 2 
+All Products:
+Apples 10
+Oranges 15
+Inventory cleared
+
+
+Input 2:
+
+5
+Books, 20 
+Pens, 50
+Notebooks, 30
+Markers, 15
+Erasers, 25
+Pencil
+
+Output 2:
+
+Output 2:
+Pencil does not exist in the inventory.
+Total number of products: 5
+All Products:
+Erasers - 25
+Markers - 15
+Notebooks - 30
+Books - 20
+Pens - 50
+Inventory cleared
+
+
+
+----------------------------------------------
+
+import java.util.*;
+
+class Main 
+{
+    public static void main(String[] args)
+    {
+        Scanner scan = new Scanner(System.in);
+        HashMap<String,Integer> map = new HashMap<>();
+        
+        int n = scan.nextInt();
+        scan.nextLine();
+        
+        for(int i=1;i<=n;i++)
+        {
+            String line = scan.nextLine();
+            String[] arr = line.split(",");
+            String name = arr[0];
+            int quantity = Integer.parseInt(arr[1].trim());
+            
+            map.put(name,quantity);
+        }
+        
+        String searchProduct = scan.nextLine();
+        if(map.containsKey(searchProduct))
+        {
+            System.out.println(searchProduct+"'s Quantity: "+map.get(searchProduct));
+            map.remove(searchProduct);
+            System.out.println(searchProduct+" removed from inventory.");
+        }
+        else
+        {
+            System.out.println(searchProduct+" does not exist in the inventory.");
+        }
+        
+        System.out.println("Total number of products: "+map.size());
+        
+        System.out.println("All products:");
+        
+        
+        for(Map.Entry<String,Integer> e : map.entrySet())
+        {
+            System.out.println(e.getKey()+" - "+e.getValue());
+        }
+        
+        map.clear();
+        System.out.println("Inventory cleared");
+    }
+}
+
