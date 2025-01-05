@@ -1,0 +1,137 @@
+OneToOne Mapping
+----------------
+Create a Spring Boot application with two entities: "Person" and "Passport". A person can have only one passport and a passport can belong to only one person. Implement a one-to-one di-directional mapping between these entities using Spring JPA. This assignment need to be tried in Day 20 Session 1 Serial No. 3(3rd COD) on the portal.
+
+Implement the following RESTFull API's :
+--------------------------------------
+
+1)  POST-"/passport"- Returns response status 201 with Passport object on successful creation or else 500,In case of a DuplicatePassportException, specifically when the passport serial number already exists, it returns a status of 409(CONFLICT) with an appropriate error message as "Passport with serial number (serial number) already exists!".
+
+2) POST - /api/person  -  add person
+
+3) POST - "/person/passport/{passportId}" - Returns response status 201 with person object on successfully mapping the person to the passportId or else 500.
+
+4) POST - /api/passport/person/{persionId}
+
+5) PUT  - /api/person/{personId}/passport/{passportId}
+	- Link person to passport
+
+6)  GET - "/person/{personId}" - Returns response status 200 with person object, which includes details of the passport on successful retrieval or else 404.
+
+7)  GET - "/passport" -  Returns response status 200 with List<Passport> object on successful retrieval or else 404.
+
+
+Additional API's to be implemented :
+----------------------------------
+
+8)  GET-"/api/person"- Returns a response status 200 with List<Person> object based on successful retrieval or else 404.
+ 
+9) GET - "/api/person/email/{email}" - Returns a response status 200 with Person object searched by email or 404 not found
+
+10) GET - "/api/person/phonenumber/{phoneNumber} - Returns a response status 200 with Person object searched by phoneNumber or else 404 not found.
+
+11) DELETE-"/api/person/{personid)" - Returns response status 200 with String Person (personId) deleted successfully on successful deletion or else "Person not found with ID:+personId.
+
+12) DELETE - "/api/passport/{passportId} - Delete passport object
+
+13) PUT - /api/person/{personId} - Modify person object with the data given in body
+
+14) PUT - /api/passport/{passportId} - Modify Passport object with the data given in body
+
+15) PUT - /api/person/name/{personId}/email/{email}/phoneNumber/{phoneNumber} - modify email and phonenumber of a person that is been given in path variable
+
+16) PUT - /api/person?personId={personID}&email={email}&phoneNumber={phoneNumber} - modify email and phonenumber of a person that is been given as parameter
+
+
+
+
+
+Entity classes
+--------------
+
+@Entity
+@Table(name = "person")
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+public class Person
+{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private logn id;
+    String name;
+    String dateOfBirth; 
+    String email;
+    String phoneNumber 
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "passport_id", referencedColumnName = "passportId")  
+    private Passport passport 
+
+    // This means Foreign key will be created only in the Passport table 
+    // i.e. extra column 'passport_id' will be created in the Person table
+    
+    // Person-Passport One-To-One Unidirectional Relationship Mapping
+
+    // With FetchType.LAZY and @ToString(exclude = "passort") at the entity Class level,
+    // it will fetch the details of the Parent only i.e. Person
+
+    // With FetchType.EAGER, it will fetch the details of the Child along with the Parent i.e.
+    // both Passport and Person details
+
+}
+
+
+
+@Entity
+@Table(name = "passport")
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+public class Passport
+{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+    private String serialNumber; 
+    private int issueYear; 
+    private String country; 
+
+    @OneToOne(mappedBy = "passort")  
+    @JsonBackReference
+    private Person person;
+    // Can define 'cascade = CascadeType.ALL' here as well instead of in Person entity
+    
+}
+
+
+
+Explanation for the ‘Person’ entity:
+-----------------------------------
+@Entity: Marks this class as a JPA entity, representing a table in the database.
+
+@Id: Specifies the primary key of the entity.
+
+@GeneratedValue: Defines the strategy for generating the primary key. In this case, it’s set to GenerationType.IDENTITY, which means the database will automatically generate the primary key.
+
+@OneToOne: Defines a one-to-one relationship with another entity (in this case, Passport).
+
+cascade = CascadeType.ALL: Specifies that all operations (e.g., persist, remove) should be cascaded to the associated Passport. For instance, if you save/update/delete a Person, it will also affect the associated Passport.
+
+fetch = FetchType.EAGER: Specifies that the associated Passport should be fetched eagerly (loaded immediately) whenever a Person is fetched.
+
+@JoinColumn: Specifies the foreign key column in the Person table that references the passportId column in the Passport table.
+
+
+
+
+Explanation for the ‘Passport’ entity.
+-----------------------------------
+@Table(name = “passport”): Specifies the table name in the database for this entity. In this case, it’s set to “passport”.
+
+@Id: Specifies the primary key of the entity.
+
+@GeneratedValue: Defines the strategy for generating the primary key. In this case, it’s set to GenerationType.IDENTITY, which means the database will automatically generate the primary key.
+
+@OneToOne(mappedBy = “passport”): Establishes a bidirectional one-to-one relationship with Person. The “mappedBy” attribute refers to the field in the owning entity (Person) that maps this relationship.
