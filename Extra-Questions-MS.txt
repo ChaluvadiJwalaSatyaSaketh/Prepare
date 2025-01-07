@@ -1,0 +1,407 @@
+Create a Spring Boot application with two entities: "Teacher" and "TeacherCard." Each Teacher can have one TeacherCard, and each TeacherCard can be assigned to one Teacher. Implement a bidirectional one-to-one mapping between these entities using Spring Data JPA.
+
+Functional Requirements:
+Create folders named controller, model, repository, and service inside the WORKSPACE/springapp/src/main/java/com/examly/springapp.
+
+Inside the controller folder, create classes named TeacherController and TeacherCardController.
+
+Inside the model folder, create a class named Teacher with the following attributes:
+
+teacherId - int (auto-generated primary key)
+name - String
+subject - String
+email - String
+teacherCard - TeacherCard (@OneToOne, mappedBy = "teacher", @JsonManagedReference)
+
+
+Create another class named TeacherCard with the following attributes:
+
+teacherCardId - int (auto-generated primary key)
+cardNumber - String
+status - String
+teacher - Teacher (@OneToOne, @JoinColumn, @JsonBackReference)
+Implement getters, setters, and constructors (both parameterized and no-argument) for the Teacher and TeacherCard entities.
+
+Inside the repository folder, create interfaces named TeacherRepo and TeacherCardRepo.
+
+Inside the service folder, create interfaces named TeacherService and TeacherCardService. Also, create classes TeacherServiceImpl and TeacherCardServiceImpl which implement TeacherService and TeacherCardService, respectively.
+
+API Endpoints:
+POST - /api/teacher - Returns response status 201 with teacher object on successful creation or else 500. In case of a DuplicateTeacherException, specifically when the email already exists, it returns a status of 409 (CONFLICT) with an appropriate error message as "Teacher with email {email} already exists!".
+
+POST - /api/teachercard/teacher/{teacherId} - Returns response status 201 with a teacher card object on successfully mapping the teacher card to the teacherId or else 500.
+
+GET - /api/teacher/{teacherId} - Returns response status 200 with teacher object, which includes details of teacherCard on successful retrieval or else 404.
+
+GET - /api/teacher - Returns response status 200 with List<Teacher> object, which includes details of teacherCard on successful retrieval or else 404.
+
+GET - /api/teachercard/status/{status} - Returns response status 200 with List<TeacherCard> object, based on the specified status or else 404.
+
+DELETE - /api/teachercard/{teacherCardId} - Returns response status 200 with String "Teacher Card {teacherCardId} deleted successfully" on successful deletion or else "Teacher Card not found with ID: {teacherCardId}".
+
+Platform Guidelines:
+To run the project, use the Terminal in the platform.
+
+Spring Boot:
+Navigate to the springapp directory: cd springapp
+To start/run the application: mvn spring-boot:run
+Database Connection:
+To connect to the database, open the terminal:mysql -u root --protocol=tcp -p
+Password: examly
+
+Note:
+Click on the Run Test Case button to pass all the test cases.
+
+
+
+====================================================================
+
+Overview:
+Create a Spring Boot application with two entities: "Project" and "Employee". A project can have multiple employees assigned to it, while each employee can be part of only one project. Implement a one-to-many bidirectional mapping between these entities using Spring JPA. Utilize JPQL for retrieving details and incorporate handling for DuplicateProjectException.
+
+Functional Requirements:
+Project Structure: Create folders named controller, model, repository, exception, and service inside WORKSPACE/springapp/src/main/java/com/examly/springapp.
+
+Model Classes:
+
+Project:
+Attributes:
+id - int (auto-generated primary key)
+projectName - String
+budget - double
+employees - List<Employee> (OneToMany, mappedBy = "project", @JsonManagedReference)
+
+
+Employee:
+Attributes:
+employeeId - int (auto-generated primary key)
+name - String
+role - String
+project - Project (ManyToOne, @JsonBackReference)
+Repository Interfaces:
+
+ProjectRepo
+EmployeeRepo
+Service Interfaces and Implementations:
+
+Interfaces: ProjectService and EmployeeService
+Implementations: ProjectServiceImpl and EmployeeServiceImpl
+Controllers:
+
+ProjectController
+EmployeeController
+Custom Exception:
+
+DuplicateProjectException
+API Endpoints:
+POST - /project - Create a new project. Returns response status 201 on successful creation or status 500 with an error message if a project with the same name already exists.
+
+POST - /employee/{projectId}/assign - Assign an employee to a project. Returns response status 201 on successful assignment or status 500 on failure.
+
+GET - /project/{projectId} - Retrieve project details, including assigned employees. Returns response status 200 on success or status 404 if not found.
+
+GET - /employee - Retrieve all employees. Returns response status 200 on success or status 404 if none exist.
+
+GET - /employee/sorted - Retrieve all employees sorted by role in ascending order. Returns response status 200 on success or status 404 if no employees are found.
+
+DELETE - /employee/{employeeId} - Delete an employee by ID. Returns response status 200 on successful deletion or an error message if not found.
+
+Platform Guidelines:
+To run the project, navigate to the springapp directory and use the command mvn spring-boot:run. Ensure your MySQL database is running and configured properly.
+
+Additional Notes:
+Ensure that you handle exceptions, particularly for DuplicateProjectException, when attempting to create a project with an existing name. Follow the structure and naming conventions for a clean implementation.
+
+
+
+=======================================================
+
+Create a Spring Boot application with two entities: "Library" and "Book". A library can have multiple books, and each book belongs to only one library. Implement a one-to-many bidirectional mapping between these entities using Spring JPA. Utilize JPQL for retrieving details and incorporate handling for DuplicateLibraryException.
+
+Functional Requirements:
+Project Structure: Create folders named controller, model, repository, exception, and service inside WORKSPACE/springapp/src/main/java/com/examly/springapp.
+
+Model Classes:
+
+Library:
+Attributes:
+libraryId - int (auto-generated primary key)
+name - String
+location - String
+numOfBooks - int
+books - List<Book> (OneToMany, mappedBy = "library", @JsonManagedReference)
+
+Book:
+Attributes:
+bookId - int (auto-generated primary key)
+title - String
+author - String
+genre - String
+library - Library (ManyToOne, @JsonBackReference)
+Repository Interfaces:
+
+LibraryRepo
+BookRepo
+Custom Exception:
+
+DuplicateLibraryException
+Service Interfaces and Implementations:
+
+Interfaces: LibraryService and BookService
+Implementations: LibraryServiceImpl and BookServiceImpl
+Controllers:
+
+LibraryController
+BookController
+API Endpoints:
+POST - /library - Create a new library. Returns response status 201 on successful creation or status 500 with an error message if a library with the same name already exists.
+
+POST - /book/{libraryId}/add - Add a book to a library. Returns response status 201 on successful addition or status 500 on failure.
+
+GET - /library/{libraryId} - Retrieve library details, including its books. Returns response status 200 on success or status 404 if not found.
+
+GET - /book - Retrieve all books. Returns response status 200 on success or status 404 if none exist.
+
+GET - /book/{author} - Retrieve books by the specified author. Returns response status 200 on success or status 404 if no books are found. Use the @Query annotation in the respective repository class.
+
+DELETE - /book/{bookId} - Delete a book by ID. Returns response status 200 on successful deletion or an error message if not found.
+
+Platform Guidelines:
+To run the project, navigate to the springapp directory and use the command mvn spring-boot:run. Ensure your MySQL database is running and configured properly.
+
+Additional Notes:
+Make sure to handle exceptions for DuplicateLibraryException when attempting to create a library with an existing name. Follow the structure and naming conventions for a clean implementation.
+
+
+=================================================================
+
+
+
+Create a Spring Boot application with two entities: "Store" and "Product". A store can have multiple products, and a product can belong to only one store. Implement a one-to-many bidirectional mapping between these entities using Spring JPA. Utilize JPQL for retrieving details and incorporate handling for DuplicateStoreException.
+
+Functional Requirements:
+Project Structure: Create folders named controller, model, repository, exception, and service inside WORKSPACE/springapp/src/main/java/com/examly/springapp.
+
+Model Classes:
+
+Store:
+Attributes:
+storeId - int (auto-generated primary key)
+storeName - String
+location - String
+totalProducts - int
+products - List<Product> (OneToMany, mappedBy = "store", @JsonManagedReference)
+
+Product:
+Attributes:
+productId - int (auto-generated primary key)
+name - String
+price - double
+category - String
+store - Store (ManyToOne, @JsonBackReference)
+Repository Interfaces:
+
+StoreRepo
+ProductRepo
+Custom Exception:
+
+DuplicateStoreException
+Service Interfaces and Implementations:
+
+Interfaces: StoreService and ProductService
+Implementations: StoreServiceImpl and ProductServiceImpl
+Controllers:
+
+StoreController
+ProductController
+API Endpoints:
+POST - /store - Create a new store. Returns response status 201 on successful creation, or status 500 with an error message if a store with the same name already exists.
+
+POST - /product/{storeId}/add - Add a product to a store. Returns response status 201 on successful addition or status 500 on failure.
+
+GET - /product - Retrieve all products. Returns response status 200 on success or status 404 if none exist.
+
+GET - /store/{storeId} - Retrieve store details, including its products. Returns response status 200 on success or status 404 if not found.
+
+GET - /product/findByCategory/{category} - Retrieve a list of products by the specified category. Returns response status 200 on success or status 404 if no products are found.
+
+DELETE - /product/{productId} - Delete a product by ID. Returns response status 200 on successful deletion or an error message if not found.
+
+Platform Guidelines:
+To run the project, navigate to the springapp directory and use the command mvn spring-boot:run. Ensure your MySQL database is running and configured properly.
+
+Additional Notes:
+Make sure to handle exceptions for DuplicateStoreException when attempting to create a store with an existing name. Follow the structure and naming conventions for a clean implementation.
+
+
+=====================================================================
+
+
+Overview:
+Create a Spring Boot application with two entities: "Restaurant" and "MenuItem." Each Restaurant can have one MenuItem, and each MenuItem is associated with one Restaurant. Implement a bidirectional one-to-one mapping between these entities using Spring Data JPA.
+
+Functional Requirements:
+Project Structure: Create folders named controller, model, repository, and service inside WORKSPACE/springapp/src/main/java/com/examly/springapp.
+
+Model Classes:
+
+Restaurant:
+Attributes:
+restaurantId - int (auto-generated primary key)
+name - String
+location - String
+cuisineType - String
+menuItem - MenuItem (@OneToOne, mappedBy = "restaurant", @JsonManagedReference)
+MenuItem:
+Attributes:
+menuItemId - int (auto-generated primary key)
+itemName - String
+price - double
+description - String
+restaurant - Restaurant (@OneToOne, @JoinColumn, @JsonBackReference)
+Repository Interfaces:
+
+RestaurantRepo
+MenuItemRepo
+Service Interfaces:
+
+RestaurantService
+MenuItemService
+Implementations: RestaurantServiceImpl and MenuItemServiceImpl
+Controllers:
+
+RestaurantController
+MenuItemController
+API Endpoints:
+POST - /api/restaurant - Creates a new restaurant. Returns response status 201 on successful creation. In case of a DuplicateRestaurantException (when the restaurant name already exists), return status 409 (CONFLICT) with an appropriate message: "Restaurant with name {restaurantName} already exists!".
+
+POST - /api/menuitem/restaurant/{restaurantId} - Maps a menu item to a restaurant. Returns response status 201 with the menu item object on successful mapping, or 500 on failure.
+
+GET - /api/restaurant/{restaurantId} - Retrieves a restaurant object, including the associated menu item. Returns status 200 on success or 404 if not found.
+
+GET - /api/menuitem/name/{itemName} - Retrieves a menu item by name. Returns status 200 with the menu item object or 404 if not found.
+
+DELETE - /api/menuitem/{menuItemId} - Deletes a menu item by ID. Returns status 200 with a message "Menu Item with ID {menuItemId} deleted successfully" on successful deletion or an error message if not found.
+
+Platform Guidelines:
+To run the project, navigate to the springapp directory and use the command mvn spring-boot:run. Ensure your MySQL database is running and configured properly.
+
+Additional Notes:
+Handle exceptions for DuplicateRestaurantException when attempting to create a restaurant with an existing name. Follow the structure and naming conventions for a clean implementation.
+============================================================
+
+Overview:
+Create a Spring Boot application with two entities: "School" and "Student." Each School can have one Student, and each Student can be assigned to one School. Implement a bidirectional one-to-one mapping between these entities using Spring Data JPA.
+
+Functional Requirements:
+Project Structure: Create folders named controller, model, repository, and service inside WORKSPACE/springapp/src/main/java/com/examly/springapp.
+
+Model Classes:
+
+School:
+Attributes:
+schoolId - int (auto-generated primary key)
+name - String
+location - String
+establishedYear - int
+student - Student (@OneToOne, mappedBy = "school", @JsonManagedReference)
+Student:
+Attributes:
+studentId - int (auto-generated primary key)
+fullName - String
+age - int
+grade - String
+school - School (@OneToOne, @JoinColumn, @JsonBackReference)
+Repository Interfaces:
+
+SchoolRepo
+StudentRepo
+Service Interfaces:
+
+SchoolService
+StudentService
+Implementations: SchoolServiceImpl and StudentServiceImpl
+Controllers:
+
+SchoolController
+StudentController
+API Endpoints:
+POST - /api/school - Creates a new school. Returns response status 201 on successful creation. In case of a DuplicateSchoolException (when the school name already exists), return status 409 (CONFLICT) with an appropriate message: "School with name {name} already exists!".
+
+POST - /api/student/school/{schoolId} - Maps a student to a school. Returns response status 201 with the student object on successful mapping, or 500 on failure.
+
+GET - /api/school/{schoolId} - Retrieves a school object, including the associated student. Returns status 200 on success or 404 if not found.
+
+GET - /api/school - Returns a list of all schools with their associated students. Returns status 200 or 404 if no schools are found.
+
+GET - /api/student/fullname/{fullName} - Retrieves a student by their full name. Returns status 200 with the student object or 404 if not found.
+
+DELETE - /api/student/{studentId} - Deletes a student by ID. Returns status 200 with a message "Student with ID {studentId} deleted successfully" on successful deletion or an error message if not found.
+
+Platform Guidelines:
+To run the project, navigate to the springapp directory and use the command mvn spring-boot:run. Ensure your MySQL database is running and configured properly.
+
+Additional Notes:
+Handle exceptions for DuplicateSchoolException when attempting to create a school with an existing name. Follow the structure and naming conventions for a clean implementation.
+
+
+==================================================Overview:
+Create a Spring Boot application with two entities: "Hotel" and "Room." Each Hotel can have one Room, and each Room can be assigned to one Hotel. Implement a bidirectional one-to-one mapping between these entities using Spring Data JPA.
+
+Functional Requirements:
+Project Structure: Create folders named controller, model, repository, and service inside WORKSPACE/springapp/src/main/java/com/examly/springapp.
+
+Model Classes:
+
+Hotel:
+Attributes:
+hotelId - int (auto-generated primary key)
+hotelName - String
+location - String
+rating - int
+room - Room (@OneToOne, mappedBy = "hotel", @JsonManagedReference)
+Room:
+Attributes:
+roomId - int (auto-generated primary key)
+roomType - String
+price - double
+capacity - int
+hotel - Hotel (@OneToOne, @JoinColumn, @JsonBackReference)
+Repository Interfaces:
+
+HotelRepo
+RoomRepo
+Service Interfaces:
+
+HotelService
+RoomService
+Implementations: HotelServiceImpl and RoomServiceImpl
+Controllers:
+
+HotelController
+RoomController
+API Endpoints:
+POST - /api/hotel - Creates a new hotel. Returns response status 201 on successful creation. In case of a DuplicateHotelException (when the hotel name already exists), return status 409 (CONFLICT) with an appropriate message: "Hotel with name {hotelName} already exists!".
+
+POST - /api/room/hotel/{hotelId} - Maps a room to a hotel. Returns response status 201 with the room object on successful mapping, or 500 on failure.
+
+GET - /api/hotel/{hotelId} - Retrieves a hotel object, including the associated room. Returns status 200 on success or 404 if not found.
+
+GET - /api/hotel - Returns a list of all hotels with their associated rooms. Returns status 200 or 404 if no hotels are found.
+
+GET - /api/room/type/{roomType} - Retrieves rooms by type. Returns status 200 with the room object or 404 if not found.
+
+DELETE - /api/room/{roomId} - Deletes a room by ID. Returns status 200 with a message "Room with ID {roomId} deleted successfully" on successful deletion or an error message if not found.
+
+Platform Guidelines:
+To run the project, navigate to the springapp directory and use the command mvn spring-boot:run. Ensure your MySQL database is running and configured properly.
+
+Additional Notes:
+Handle exceptions for DuplicateHotelException when attempting to create a hotel with an existing name. Follow the structure and naming conventions for a clean implementation.
+
+===============================================================================
+
+
+
+
+
