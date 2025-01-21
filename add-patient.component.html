@@ -1,0 +1,26 @@
+<div class="container">
+    <form [formGroup]="patientForm" (ngSubmit)="addNewPatient()">
+        <div class="form-group">
+            <label for="name">Patient Name: </label>
+            <input type="text" formControlName="name" name="name" id="name">
+        </div>
+        <div class="form-group">
+            <label for="age">Patient Age: </label>
+            <input type="text" formControlName="age" name="age" id="age">
+        </div>
+        <div class="form-group">
+            <label for="gender">Patient Gender: </label>
+            <input type="text" formControlName="gender" name="gender" id="gender">
+        </div>
+        <div class="form-group">
+            <label for="bloodGroup">Patient BloodGroup: </label>
+            <input type="text" formControlName="bloodGroup" name="bloodGroup" id="bloodGroup">
+        </div>
+        <div class="form-group">
+            <label for="medicalHistory">Patient Medical History: </label>
+            <input type="text" formControlName="medicalHistory" name="medicalHistory" id="medicalHistory">
+        </div>
+        <br>
+        <button type="submit" [disabled]="!patientForm.valid">Add Patient</button>
+    </form>
+</div>

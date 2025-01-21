@@ -1,0 +1,11 @@
+<div class="container">
+  <ul style="list-style: none; display: flex;">
+    <li><button class="btn btn-primary" (click)="view = 'list'">Patient List</button></li>
+    <li><button class="btn btn-primary" (click)="view = 'add'">Add Patient</button></li>
+  </ul>
+</div>
+
+<div class="container">
+  <app-add-patient *ngIf="view == 'add'"></app-add-patient>
+  <app-patient-list *ngIf="view == 'list'"></app-patient-list>
+</div>

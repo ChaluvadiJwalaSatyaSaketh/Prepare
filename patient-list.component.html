@@ -1,0 +1,26 @@
+<div class="container">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Gender</th>
+                <th>Blood Group</th>
+                <th>Medical History</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let p of patients">
+                <td>{{p.name}}</td>
+                <td>{{p.age}}</td>
+                <td>{{p.gender}}</td>
+                <td>{{p.bloodGroup}}</td>
+                <td>{{p.medicalHistory}}</td>
+                <td>
+                    <button class="btn btn-danger" (click)="deletePatient(p.id)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
